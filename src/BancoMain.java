@@ -19,6 +19,7 @@ public class BancoMain {
         agencia2.addConta(conta4);
 
         Scanner scanner2 = new Scanner(System.in);
+
         System.out.print("Digite o número da sua agência: ");
         int agenciaNum = scanner2.nextInt();
 
@@ -38,58 +39,101 @@ public class BancoMain {
         }
 
         if (agenciaExiste) {
-            System.out.print("Digite o número da sua conta: ");
-            String numeroConta = scanner.nextLine();
+            Scanner scanner6 = new Scanner(System.in);
+            int opcao2;
 
-            if (agencia.contaCadastrada(numeroConta) == null) {
-                System.out.println("\nEssa conta não está cadastrada na agência "+agencia.getNumeroAgencia()  +" desse banco.");
+            do {
+                System.out.println("\nMenu de opções:\n 1 - Criar nova conta\n 2 - Entrar na sua conta");
+                System.out.print("Digite a sua opção ou -1 para sair: ");
 
-            } else {
-                System.out.println("\nBem vindo a sua conta bancária, "+agencia.contaCadastrada(numeroConta).getNome());
+                opcao2 = scanner6.nextInt();
 
-                do {
-                    System.out.println("\nMenu de opções:\n1 - Depósito\n2 - Saque\n3 - Mostrar saldo");
-                    System.out.print("Digite a sua opção ou -1 para sair: ");
+                switch(opcao2) {
+                    case 1:
+                        Scanner scanner7 = new Scanner(System.in);
 
-                    opcao = scanner.nextInt();
+                        System.out.print("Digite o número da sua conta: ");
+                        String novaConta = scanner7.nextLine();
 
-                    switch(opcao) {
-                        case 1:
-                            Scanner scanner3 = new Scanner(System.in);
-                    
-                            System.out.print("Digite o valor que você quer depositar, "+agencia.contaCadastrada(numeroConta).getNome() +": ");
+                        System.out.print("Digite o seu nome: ");
+                        String nome = scanner7.nextLine();
 
-                            float deposito = scanner3.nextFloat();
-                            agencia.contaCadastrada(numeroConta).deposito(deposito);
+                        System.out.print("Digite o seu saldo inicial: ");
+                        float saldoInicial = scanner7.nextFloat();
 
-                            break;
+                        ContaBancaria conta = new ContaBancaria(novaConta, nome, saldoInicial);
 
-                        case 2:
-                            Scanner scanner4 = new Scanner(System.in);
-                            
-                            System.out.print("Digite o valor que você quer sacar, "+agencia.contaCadastrada(numeroConta).getNome()+": ");
+                        agencia.addConta(conta);
 
-                            float saque = scanner4.nextFloat();
-                            agencia.contaCadastrada(numeroConta).saque(saque);
+                        break;
 
-                            break;
+                    case 2:
+                        System.out.print("Digite o número da sua conta: ");
+                        String numeroConta = scanner.nextLine();
 
-                        case 3:
-                            System.out.print("\nO seu saldo é de R$ "+agencia.contaCadastrada(numeroConta).getSaldo() +" reais.\n");
-                            break;
-                        
-                        default:
-                            if (opcao != -1) {
-                                System.out.println("\nOpção inválida.");
+                        if (agencia.contaCadastrada(numeroConta) == null) {
+                            System.out.println("\nEssa conta não está cadastrada na agência "+agencia.getNumeroAgencia()  +" desse banco.");
+
+                        } else {
+                            System.out.println("\nBem vindo a sua conta bancária, "+agencia.contaCadastrada(numeroConta).getNome());
+
+                            do {
+                                System.out.println("\nMenu de opções:\n1 - Depósito\n2 - Saque\n3 - Mostrar saldo");
+                                System.out.print("Digite a sua opção ou -1 para sair: ");
+
+                                opcao = scanner.nextInt();
+
+                                switch(opcao) {
+                                    case 1:
+                                        Scanner scanner3 = new Scanner(System.in);
                                 
-                                break;
-                            }
-                    } 
+                                        System.out.print("Digite o valor que você quer depositar, "+agencia.contaCadastrada(numeroConta).getNome() +": ");
 
-                } while (opcao != -1);
-            }
+                                        float deposito = scanner3.nextFloat();
+                                        agencia.contaCadastrada(numeroConta).deposito(deposito);
+
+                                        break;
+
+                                    case 2:
+                                        Scanner scanner4 = new Scanner(System.in);
+                                        
+                                        System.out.print("Digite o valor que você quer sacar, "+agencia.contaCadastrada(numeroConta).getNome()+": ");
+
+                                        float saque = scanner4.nextFloat();
+                                        agencia.contaCadastrada(numeroConta).saque(saque);
+
+                                        break;
+
+                                    case 3:
+                                        System.out.print("\nO seu saldo é de R$ "+agencia.contaCadastrada(numeroConta).getSaldo() +" reais.\n");
+                                        break;
+                                    
+                                    default:
+                                        if (opcao != -1) {
+                                            System.out.println("\nOpção inválida.");
+                                            
+                                            break;
+                                        }
+                                } 
+
+                            } while (opcao != -1);
+                        }
+
+                        break;
+                    
+                    default:
+                        if (opcao2 != -1) {
+                            System.out.println("\nOpção inválida.");
+                                            
+                            break;
+                        }
+                }   
+                
+            } while (opcao2 != -1);
+
+            scanner6.close();
         }
-        
+
         scanner.close();
         scanner2.close();
     }
