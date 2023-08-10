@@ -41,6 +41,13 @@ public class ContaBancaria {
     }
 
     public void deposito(float valor) {
-        this.saldo = saldo + valor;
+        if (valor > 0) {
+            this.saldo = saldo + valor;
+
+            System.out.println("\nDepósito realizado com sucesso.");
+
+        } else {
+            System.out.println("\nValor inválido para o depósito.");
+        }
     }
 }
